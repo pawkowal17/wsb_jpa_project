@@ -1,5 +1,8 @@
 package com.capgemini.wsb.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.time.LocalDate;
 
 import javax.persistence.Column;

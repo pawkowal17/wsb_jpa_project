@@ -20,7 +20,7 @@ public class AddressEntity {
 	@Column(name = "CITY", nullable = false)
 	private String city;
 
-	@Column(name = "ADDRESS_LINE_1", nullable = false)
+	@Column(name = "ADDRESS_LINE1", nullable = false)
 	private String addressLine1;
 
 	private String addressLine2;
