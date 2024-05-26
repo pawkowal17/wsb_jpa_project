@@ -15,4 +15,5 @@ public interface PatientService {
     List<PatientTO> findPatientsWithMoreThanXVisits(int numberOfVisits);
     List<PatientTO> findAllPatients();
     List<VisitTO> findAllVisitsByPatientId(Long patientId);
+    List<PatientTO> findPatientsYoungerThan(int age);
 }

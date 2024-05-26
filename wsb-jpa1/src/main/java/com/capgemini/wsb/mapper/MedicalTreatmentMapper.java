@@ -13,7 +13,7 @@ public final class MedicalTreatmentMapper {
         medicalTreatmentTO.setId(medicalTreatmentEntity.getId());
         medicalTreatmentTO.setDescription(medicalTreatmentEntity.getDescription());
         medicalTreatmentTO.setType(medicalTreatmentEntity.getType());
-        medicalTreatmentTO.setVisit(VisitMapper.mapToTO(medicalTreatmentEntity.getVisit()));
+/*        medicalTreatmentTO.setVisit(VisitMapper.mapToTO(medicalTreatmentEntity.getVisit()));*/
         return medicalTreatmentTO;
     }
 
@@ -25,7 +25,7 @@ public final class MedicalTreatmentMapper {
         medicalTreatmentEntity.setId(medicalTreatmentTO.getId());
         medicalTreatmentEntity.setDescription(medicalTreatmentTO.getDescription());
         medicalTreatmentEntity.setType(medicalTreatmentTO.getType());
-        medicalTreatmentEntity.setVisit(VisitMapper.mapToEntity(medicalTreatmentTO.getVisit()));
+/*        medicalTreatmentEntity.setVisit(VisitMapper.mapToEntity(medicalTreatmentTO.getVisit()));*/
         return medicalTreatmentEntity;
     }
 }

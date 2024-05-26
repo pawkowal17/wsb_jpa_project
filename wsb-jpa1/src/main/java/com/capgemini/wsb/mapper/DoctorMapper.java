@@ -18,9 +18,9 @@ public final class DoctorMapper {
         doctorTO.setEmail(doctorEntity.getEmail());
         doctorTO.setDoctorNumber(doctorEntity.getDoctorNumber());
         doctorTO.setSpecialization(doctorEntity.getSpecialization());
-/*        doctorTO.setVisits(doctorEntity.getVisits().stream()
+        doctorTO.setVisits(doctorEntity.getVisits().stream()
                 .map(VisitMapper::mapToTO)
-                .collect(Collectors.toList()));*/
+                .collect(Collectors.toList()));
         doctorTO.setAddresses(doctorEntity.getAddresses().stream()
                 .map(AddressMapper::mapToTO)
                 .collect(Collectors.toList()));
@@ -39,9 +39,9 @@ public final class DoctorMapper {
         doctorEntity.setEmail(doctorTO.getEmail());
         doctorEntity.setDoctorNumber(doctorTO.getDoctorNumber());
         doctorEntity.setSpecialization(doctorTO.getSpecialization());
-/*        doctorEntity.setVisits(doctorTO.getVisits().stream()
+        doctorEntity.setVisits(doctorTO.getVisits().stream()
                 .map(VisitMapper::mapToEntity)
-                .collect(Collectors.toList()));*/
+                .collect(Collectors.toList()));
         doctorEntity.setAddresses(doctorTO.getAddresses().stream()
                 .map(AddressMapper::mapToEntity)
                 .collect(Collectors.toList()));

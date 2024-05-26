@@ -27,31 +27,13 @@ public class PatientController {
         }
         throw new EntityNotFoundException(id);
     }
-    @GetMapping("/patient/lastname/{lastName}") // Endpoint dla wyszukiwania po nazwisku
+    @GetMapping("/patient/lastname/{lastName}")
     public PatientTO findByLastName(@PathVariable String lastName) {
         PatientTO patient = patientService.findByLastName(lastName);
         if (patient != null) {
             return patient;
         }
         /*throw new EntityNotFoundException(lastName);*/
-        return null;
-    }
-    @GetMapping("/patient/more-than-visits/{numberOfVisits}")
-    public List<PatientTO> findPatientsWithMoreThanXVisits(@PathVariable int numberOfVisits) {
-        List<PatientTO> patients = patientService.findPatientsWithMoreThanXVisits(numberOfVisits);
-        if (patients != null && !patients.isEmpty()) {
-            return patients;
-        }
-        /*throw new EntityNotFoundException("No patients found with more than " + numberOfVisits + " visits.");*/
-        return null;
-    }
-    @GetMapping("/patient/all-patients")
-    public List<PatientTO> findAllPatients() {
-        List<PatientTO> patients = patientService.findAllPatients();
-        if (patients != null && !patients.isEmpty()) {
-            return patients;
-        }
-        /*throw new EntityNotFoundException("No patients found with more than " + numberOfVisits + " visits.");*/
         return null;
     }
 
@@ -62,5 +44,35 @@ public class PatientController {
             return visits;
         }
         throw new EntityNotFoundException(patientId);
+    }
+
+    @GetMapping("/patient/more-than-visits/{numberOfVisits}")
+    public List<PatientTO> findPatientsWithMoreThanXVisits(@PathVariable int numberOfVisits) {
+        List<PatientTO> patients = patientService.findPatientsWithMoreThanXVisits(numberOfVisits);
+        if (patients != null && !patients.isEmpty()) {
+            return patients;
+        }
+        /*throw new EntityNotFoundException("No patients found with more than " + numberOfVisits + " visits.");*/
+        return null;
+    }
+
+    @GetMapping("/patient/younger-than/{age}")
+    public List<PatientTO> findPatientsYoungerThan(@PathVariable int age) {
+        List<PatientTO> patients = patientService.findPatientsYoungerThan(age);
+        if (patients != null && !patients.isEmpty()) {
+            return patients;
+        }
+        /*throw new EntityNotFoundException(age);*/
+        return null;
+    }
+
+    @GetMapping("/patient/all-patients")
+    public List<PatientTO> findAllPatients() {
+        List<PatientTO> patients = patientService.findAllPatients();
+        if (patients != null && !patients.isEmpty()) {
+            return patients;
+        }
+        /*throw new EntityNotFoundException("No patients found with more than " + numberOfVisits + " visits.");*/
+        return null;
     }
 }

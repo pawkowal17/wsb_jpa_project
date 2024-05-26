@@ -1,5 +1,7 @@
 package com.capgemini.wsb.dto;
 
+import com.capgemini.wsb.persistence.enums.Sex;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,6 +14,8 @@ public class PatientTO implements Serializable {
     private String email;
     private String patientNumber;
     private LocalDate dateOfBirth;
+    private int age;
+    private Sex sex;
     private List<VisitTO> visits;
     private List<AddressTO> addresses;
 
@@ -71,6 +75,22 @@ public class PatientTO implements Serializable {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
     }
 
     public List<VisitTO> getVisits() {

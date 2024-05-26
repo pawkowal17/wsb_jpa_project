@@ -6,8 +6,8 @@ import com.capgemini.wsb.persistence.entity.VisitEntity;
 import java.util.List;
 
 public interface PatientDao extends Dao<PatientEntity, Long> {
-    // Możesz dodać specyficzne metody dla PatientEntity, jeśli potrzebujesz
-    PatientEntity findByLastName(String lastName); // Dodaj tę metodę
+    PatientEntity findByLastName(String lastName);
     List<PatientEntity> findPatientsWithMoreThanXVisits(int numberOfVisits);
     List<VisitEntity> findAllVisitsByPatientId(Long patientId);
+    List<PatientEntity> findPatientsYoungerThan(int age);
 }

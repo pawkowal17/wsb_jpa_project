@@ -35,16 +35,15 @@ public class PatientServiceImpl implements PatientService {
         return PatientMapper.mapToTO(savedEntity);
     }
 
-
     @Override
-    public PatientTO findByLastName(String lastName) { // Implementuj tę metodę
-        PatientEntity patientEntity = patientDao.findByLastName(lastName);
+    public PatientTO findById(Long patientId) {
+        PatientEntity patientEntity = patientDao.findOne(patientId);
         return PatientMapper.mapToTO(patientEntity);
     }
 
     @Override
-    public PatientTO findById(Long patientId) {
-        PatientEntity patientEntity = patientDao.findOne(patientId);
+    public PatientTO findByLastName(String lastName) { // Implementuj tę metodę
+        PatientEntity patientEntity = patientDao.findByLastName(lastName);
         return PatientMapper.mapToTO(patientEntity);
     }
 
@@ -66,6 +65,14 @@ public class PatientServiceImpl implements PatientService {
         List<VisitEntity> visitEntities = patientDao.findAllVisitsByPatientId(patientId);
         return visitEntities.stream()
                 .map(VisitMapper::mapToTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PatientTO> findPatientsYoungerThan(int age) {
+        List<PatientEntity> patients = patientDao.findPatientsYoungerThan(age);
+        return patients.stream()
+                .map(PatientMapper::mapToTO)
                 .collect(Collectors.toList());
     }
 }

@@ -18,9 +18,11 @@ public final class PatientMapper {
         patientTO.setEmail(patientEntity.getEmail());
         patientTO.setPatientNumber(patientEntity.getPatientNumber());
         patientTO.setDateOfBirth(patientEntity.getDateOfBirth());
-/*        patientTO.setVisits(patientEntity.getVisits().stream()
+        patientTO.setAge(patientEntity.getAge());
+        patientTO.setSex(patientEntity.getSex());
+        patientTO.setVisits(patientEntity.getVisits().stream()
                 .map(VisitMapper::mapToTO)
-                .collect(Collectors.toList()));*/
+                .collect(Collectors.toList()));
         patientTO.setAddresses(patientEntity.getAddresses().stream()
                 .map(AddressMapper::mapToTO)
                 .collect(Collectors.toList()));
@@ -39,9 +41,11 @@ public final class PatientMapper {
         patientEntity.setEmail(patientTO.getEmail());
         patientEntity.setPatientNumber(patientTO.getPatientNumber());
         patientEntity.setDateOfBirth(patientTO.getDateOfBirth());
-/*      patientEntity.setVisits(patientTO.getVisits().stream()
+        patientEntity.setAge(patientTO.getAge());
+        patientEntity.setSex(patientTO.getSex());
+        patientEntity.setVisits(patientTO.getVisits().stream()
                 .map(VisitMapper::mapToEntity)
-                .collect(Collectors.toList()));*/
+                .collect(Collectors.toList()));
         patientEntity.setAddresses(patientTO.getAddresses().stream()
                 .map(AddressMapper::mapToEntity)
                 .collect(Collectors.toList()));
