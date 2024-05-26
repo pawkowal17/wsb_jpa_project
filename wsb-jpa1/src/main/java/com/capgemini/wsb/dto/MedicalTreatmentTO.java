@@ -9,8 +9,6 @@ public class MedicalTreatmentTO implements Serializable {
     private TreatmentType type;
     private VisitTO visit;
 
-    // Gettery i settery
-
     public Long getId() {
         return id;
     }

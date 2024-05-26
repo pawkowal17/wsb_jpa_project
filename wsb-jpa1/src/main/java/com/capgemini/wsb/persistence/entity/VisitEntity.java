@@ -1,17 +1,7 @@
 package com.capgemini.wsb.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.*;
 
@@ -80,7 +70,7 @@ public class VisitEntity {
 	}
 
 	public List<MedicalTreatmentEntity> getMedicalTreatments() {
-		return medicalTreatments;
+		return medicalTreatments != null ? medicalTreatments : Collections.emptyList();
 	}
 
 	public void setMedicalTreatments(List<MedicalTreatmentEntity> medicalTreatments) {

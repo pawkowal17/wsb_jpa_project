@@ -41,44 +41,6 @@ public class PatientDaoTest
 
     @Transactional
     @Test
-    public void testFindAllVisitsByPatientId() {
-        // given
-        PatientEntity patient = new PatientEntity();
-        patient.setFirstName("John");
-        patient.setLastName("Doe");
-        patient.setTelephoneNumber("123456789");
-        patient.setEmail("john.doe@example.com");
-        patient.setPatientNumber("P12345");
-        patient.setDateOfBirth(LocalDate.of(1985, 5, 15));
-        patient.setAge(35);
-        patient.setSex(Sex.MALE);
-
-        VisitEntity visit1 = new VisitEntity();
-        visit1.setDescription("Regular checkup");
-        visit1.setTime(LocalDateTime.of(2023, 5, 15, 10, 0));
-        visit1.setPatient(patient);
-
-        VisitEntity visit2 = new VisitEntity();
-        visit2.setDescription("Follow-up appointment");
-        visit2.setTime(LocalDateTime.of(2023, 6, 20, 11, 0));
-        visit2.setPatient(patient);
-
-        patient.setVisits(List.of(visit1, visit2));
-
-        entityManager.persist(patient);
-        entityManager.flush();
-
-        // when
-        List<VisitEntity> visits = patientDao.findAllVisitsByPatientId(patient.getId());
-
-        // then
-        assertThat(visits).hasSize(2);
-        assertThat(visits.get(0).getDescription()).isEqualTo("Regular checkup");
-        assertThat(visits.get(1).getDescription()).isEqualTo("Follow-up appointment");
-    }
-
-    @Transactional
-    @Test
     public void testFindPatientsYoungerThan() {
         // given
         PatientEntity patient1 = new PatientEntity();
@@ -124,5 +86,65 @@ public class PatientDaoTest
         assertThat(patientsYoungerThan30).hasSize(3); // 1+2 data.sql(1) + test(2)
         assertThat(patientsYoungerThan30).extracting("firstName")
                 .containsExactlyInAnyOrder("Jesse", "John", "Emily");
+    }
+
+    @Transactional
+    @Test
+    public void testFindPatientsWithMoreThanXVisits() {
+        // given
+        int numberOfVisits = 1;
+
+        PatientEntity patient1 = new PatientEntity();
+        patient1.setFirstName("John");
+        patient1.setLastName("Doe");
+        patient1.setTelephoneNumber("123456789");
+        patient1.setEmail("john.doe@example.com");
+        patient1.setPatientNumber("P12345");
+        patient1.setDateOfBirth(LocalDate.of(1985, 5, 15));
+        patient1.setAge(35);
+        patient1.setSex(Sex.MALE);
+
+        VisitEntity visit1 = new VisitEntity();
+        visit1.setDescription("Regular checkup");
+        visit1.setTime(LocalDateTime.of(2023, 5, 15, 10, 0));
+        visit1.setPatient(patient1);
+
+        VisitEntity visit2 = new VisitEntity();
+        visit2.setDescription("Follow-up appointment");
+        visit2.setTime(LocalDateTime.of(2023, 6, 20, 11, 0));
+        visit2.setPatient(patient1);
+
+        patient1.setVisits(List.of(visit1, visit2));
+
+        PatientEntity patient2 = new PatientEntity();
+        patient2.setFirstName("Jane");
+        patient2.setLastName("Smith");
+        patient2.setTelephoneNumber("987654321");
+        patient2.setEmail("jane.smith@example.com");
+        patient2.setPatientNumber("P67890");
+        patient2.setDateOfBirth(LocalDate.of(1990, 8, 20));
+        patient2.setAge(30);
+        patient2.setSex(Sex.FEMALE);
+
+        VisitEntity visit3 = new VisitEntity();
+        visit3.setDescription("Dental checkup");
+        visit3.setTime(LocalDateTime.of(2023, 7, 10, 14, 0));
+        visit3.setPatient(patient2);
+
+        patient2.setVisits(List.of(visit3));
+
+        entityManager.persist(patient1);
+        entityManager.persist(patient2);
+        entityManager.flush();
+
+        // when
+        List<PatientEntity> patients = patientDao.findPatientsWithMoreThanXVisits(numberOfVisits);
+
+        // then
+        assertThat(patients).hasSize(2); // data.sql(1) + test(1)
+        assertThat(patients.get(0).getFirstName()).isEqualTo("Karen");
+        assertThat(patients.get(0).getLastName()).isEqualTo("Goldman"); // from data.sql
+        assertThat(patients.get(1).getFirstName()).isEqualTo("John");
+        assertThat(patients.get(1).getLastName()).isEqualTo("Doe"); // from this test
     }
 }

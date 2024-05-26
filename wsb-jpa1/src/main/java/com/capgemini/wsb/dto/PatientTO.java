@@ -1,10 +1,10 @@
 package com.capgemini.wsb.dto;
 
-import com.capgemini.wsb.persistence.enums.Sex;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+
+import com.capgemini.wsb.persistence.enums.Sex;
 
 public class PatientTO implements Serializable {
     private Long id;
@@ -18,8 +18,6 @@ public class PatientTO implements Serializable {
     private Sex sex;
     private List<VisitTO> visits;
     private List<AddressTO> addresses;
-
-    // Gettery i settery
 
     public Long getId() {
         return id;

@@ -16,24 +16,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private PatientDao patientDao;
-
-    @Transactional
-    @Override
-    public void deletePatient(Long patientId) {
-        PatientEntity patientEntity = patientDao.findOne(patientId);
-        if (patientEntity != null) {
-            patientDao.delete(patientId);
-        }
-    }
-
-    public PatientTO save(PatientEntity patientEntity) {
-        PatientEntity savedEntity = patientDao.save(patientEntity);
-        return PatientMapper.mapToTO(savedEntity);
-    }
 
     @Override
     public PatientTO findById(Long patientId) {
@@ -47,6 +34,7 @@ public class PatientServiceImpl implements PatientService {
         return PatientMapper.mapToTO(patientEntity);
     }
 
+    @Override
     public List<PatientTO> findPatientsWithMoreThanXVisits(int numberOfVisits) {
         List<PatientEntity> patients = patientDao.findPatientsWithMoreThanXVisits(numberOfVisits);
         return patients.stream()
@@ -54,6 +42,7 @@ public class PatientServiceImpl implements PatientService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public List<PatientTO> findAllPatients(){
         List<PatientEntity> patientEntity = patientDao.findAll();
         return patientEntity.stream()
@@ -61,6 +50,7 @@ public class PatientServiceImpl implements PatientService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public List<VisitTO> findAllVisitsByPatientId(Long patientId) {
         List<VisitEntity> visitEntities = patientDao.findAllVisitsByPatientId(patientId);
         return visitEntities.stream()
