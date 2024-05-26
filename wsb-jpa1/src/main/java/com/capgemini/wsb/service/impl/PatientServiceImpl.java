@@ -35,8 +35,24 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public List<VisitTO> findAllVisitsByPatientId(Long patientId) {
+        List<VisitEntity> visitEntities = patientDao.findAllVisitsByPatientId(patientId);
+        return visitEntities.stream()
+                .map(VisitMapper::mapToTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<PatientTO> findPatientsWithMoreThanXVisits(int numberOfVisits) {
         List<PatientEntity> patients = patientDao.findPatientsWithMoreThanXVisits(numberOfVisits);
+        return patients.stream()
+                .map(PatientMapper::mapToTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PatientTO> findPatientsYoungerThan(int age) {
+        List<PatientEntity> patients = patientDao.findPatientsYoungerThan(age);
         return patients.stream()
                 .map(PatientMapper::mapToTO)
                 .collect(Collectors.toList());
@@ -46,22 +62,6 @@ public class PatientServiceImpl implements PatientService {
     public List<PatientTO> findAllPatients(){
         List<PatientEntity> patientEntity = patientDao.findAll();
         return patientEntity.stream()
-                .map(PatientMapper::mapToTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<VisitTO> findAllVisitsByPatientId(Long patientId) {
-        List<VisitEntity> visitEntities = patientDao.findAllVisitsByPatientId(patientId);
-        return visitEntities.stream()
-                .map(VisitMapper::mapToTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<PatientTO> findPatientsYoungerThan(int age) {
-        List<PatientEntity> patients = patientDao.findPatientsYoungerThan(age);
-        return patients.stream()
                 .map(PatientMapper::mapToTO)
                 .collect(Collectors.toList());
     }

@@ -3,6 +3,8 @@ package com.capgemini.wsb.rest;
 import com.capgemini.wsb.dto.PatientTO;
 import com.capgemini.wsb.dto.VisitTO;
 import com.capgemini.wsb.rest.exception.EntityNotFoundException;
+import com.capgemini.wsb.rest.exception.NotMatchingLastnameException;
+import com.capgemini.wsb.rest.exception.PatientsNotFoundException;
 import com.capgemini.wsb.service.PatientService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,14 +29,14 @@ public class PatientController {
         }
         throw new EntityNotFoundException(id);
     }
+
     @GetMapping("/patient/lastname/{lastName}")
     public PatientTO findByLastName(@PathVariable String lastName) {
         PatientTO patient = patientService.findByLastName(lastName);
         if (patient != null) {
             return patient;
         }
-        /*throw new EntityNotFoundException(lastName);*/
-        return null;
+        throw new NotMatchingLastnameException(lastName);
     }
 
     @GetMapping("/patient/visits/{patientId}")
@@ -52,8 +54,7 @@ public class PatientController {
         if (patients != null && !patients.isEmpty()) {
             return patients;
         }
-        /*throw new EntityNotFoundException("No patients found with more than " + numberOfVisits + " visits.");*/
-        return null;
+        throw new PatientsNotFoundException();
     }
 
     @GetMapping("/patient/younger-than/{age}")
@@ -62,8 +63,7 @@ public class PatientController {
         if (patients != null && !patients.isEmpty()) {
             return patients;
         }
-        /*throw new EntityNotFoundException(age);*/
-        return null;
+        throw new PatientsNotFoundException();
     }
 
     @GetMapping("/patient/all-patients")
@@ -72,7 +72,6 @@ public class PatientController {
         if (patients != null && !patients.isEmpty()) {
             return patients;
         }
-        /*throw new EntityNotFoundException("No patients found with more than " + numberOfVisits + " visits.");*/
-        return null;
+        throw new PatientsNotFoundException();
     }
 }

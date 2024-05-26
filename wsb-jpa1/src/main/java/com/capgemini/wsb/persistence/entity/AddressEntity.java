@@ -22,10 +22,10 @@ public class AddressEntity {
 	@Column(name = "POSTAL_CODE", nullable = false)
 	private String postalCode;
 
-	@ManyToMany(mappedBy = "addresses", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "addresses")
 	private List<DoctorEntity> doctors;
 
-	@ManyToMany(mappedBy = "addresses", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "addresses")
 	private List<PatientEntity> patients;
 
 	public Long getId() {
